@@ -182,7 +182,7 @@ Try {
         [String]$installPhase = 'Pre-Installation'
 
         ## Show Progress Message (with the default message)
-        #Show-InstallationProgress
+        Show-InstallationProgress
 
         ## <Perform Pre-Installation tasks here>
 
