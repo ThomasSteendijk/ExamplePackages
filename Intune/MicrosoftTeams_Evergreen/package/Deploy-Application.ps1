@@ -192,7 +192,7 @@ Try {
         ##*===============================================
         [String]$installPhase = 'Installation'
         ## <Perform Installation tasks here>
-	  winget install Microsoft.Teams --accept-package-agreements
+	  winget install Microsoft.Teams --accept-source-agreements
 
         ##*===============================================
         ##* POST-INSTALLATION
