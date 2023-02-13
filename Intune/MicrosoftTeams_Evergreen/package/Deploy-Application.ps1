@@ -180,9 +180,11 @@ Try {
         ##* PRE-INSTALLATION
         ##*===============================================
         [String]$installPhase = 'Pre-Installation'
-
-        ## Show Progress Message (with the default message)
-        Show-InstallationProgress
+	  $teamsactive = get-process -Name "teams"  -ErrorAction SilentlyContinue
+	  if ($teamsactive) {
+           Show-InstallationWelcome -CloseApps 'Teams' -AllowDefer -DeferTimes 3
+           Show-InstallationProgress
+	  }
 
         ## <Perform Pre-Installation tasks here>
 
@@ -192,14 +194,16 @@ Try {
         ##*===============================================
         [String]$installPhase = 'Installation'
         ## <Perform Installation tasks here>
-	  winget install Microsoft.Teams --accept-source-agreements
+	  winget install Microsoft.Teams --accept-source-agreements | write-log
 
         ##*===============================================
         ##* POST-INSTALLATION
         ##*===============================================
         [String]$installPhase = 'Post-Installation'
         ## <Perform Post-Installation tasks here>
-
+	  If ($teamsactive) {
+	  	start-process "$env:LOCALAPPDATA\Microsoft\Teams\Update.exe" -argumentlist '--processStart "Teams.exe"'
+	  }
 
     }
     ElseIf ($deploymentType -ieq 'Uninstall') {
