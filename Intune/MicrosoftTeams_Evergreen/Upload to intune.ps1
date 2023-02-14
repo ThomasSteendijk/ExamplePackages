@@ -56,7 +56,7 @@ $Win32App | ConvertTo-Json -Depth 99
 
 $IntuneWin32AppParameters = @{
 	FilePath             = (Get-ChildItem -PSPath $psscriptroot -Filter "*.intunewin").FullName
-	DisplayName          = "Microsoft Teams (Upgrade)" 
+	DisplayName          = "Microsoft Teams (Upgrader)" 
 	Description          = "Make amazing things happen together at home, work, and school."
 	Publisher            = "Microsoft"
 	InstallExperience    = "user"
