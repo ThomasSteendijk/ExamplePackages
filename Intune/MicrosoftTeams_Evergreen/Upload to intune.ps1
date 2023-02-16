@@ -30,7 +30,7 @@ if (test-path "$psscriptroot\Package") {
 Connect-MSIntuneGraph -TenantID $TenantID
 
 
-
+#Create package in intune for deploying to the users.
 $IntuneWin32AppParameters = @{
 	FilePath             = (Get-ChildItem -PSPath $psscriptroot -Filter "*.intunewin").FullName
 	DisplayName          = "Microsoft Teams" 
@@ -41,8 +41,8 @@ $IntuneWin32AppParameters = @{
 	DetectionRule        = New-IntuneWin32AppDetectionRuleFile -Path "%localappdata%\Microsoft\Teams" -Existence -FileOrFolder "Update.exe" -DetectionType exists
 	Icon 	 	         = New-IntuneWin32AppIcon -FilePath "$psscriptroot\Configuration\AppLogo.png" 
 	Verbose              = $true
-    AppVersion           = "Latest"
-	Notes                = ""
+      AppVersion           = "Latest"
+	Notes                = "Assign this application to install microsoft teams to the user."
 	RequirementRule      = New-IntuneWin32AppRequirementRule -Architecture All -MinimumSupportedWindowsRelease 1607
 	InstallCommandLine   = "Deploy-Application.exe"
 	UninstallCommandLine = "Deploy-Application.exe Uninstall"
@@ -53,7 +53,7 @@ $Win32App | ConvertTo-Json -Depth 99
 
 
 
-
+#Create a package in intune to update out of date versions of Microsoft teams
 $IntuneWin32AppParameters = @{
 	FilePath             = (Get-ChildItem -PSPath $psscriptroot -Filter "*.intunewin").FullName
 	DisplayName          = "Microsoft Teams (Upgrader)" 
@@ -64,8 +64,8 @@ $IntuneWin32AppParameters = @{
 	DetectionRule        = New-IntuneWin32AppDetectionRuleScript -ScriptFile "$PSScriptRoot\Configuration\InstalledScript.ps1"
 	Icon 	 	         = New-IntuneWin32AppIcon -FilePath "$psscriptroot\Configuration\AppLogo.png" 
 	Verbose              = $true
-    AppVersion           = "Latest"
-	Notes                = "This packages updates microsoft teams if it detects that the user has a out of date version. User gets a popup if they want to update or not."
+    AppVersion             = "Latest"
+	Notes                = "This packages updates microsoft teams if it detects that the user has a out of date version.If the users does not have teams installed teams will not be installed. User gets a popup if they want to update or not if the application is in use. Assign as required to a group or all users."
 	RequirementRule      = New-IntuneWin32AppRequirementRule -Architecture All -MinimumSupportedWindowsRelease 1607
 	InstallCommandLine   = "Deploy-Application.exe"
 	UninstallCommandLine = "Deploy-Application.exe Uninstall"
