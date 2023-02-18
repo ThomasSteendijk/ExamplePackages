@@ -52,7 +52,7 @@ The packages already have all needed information and configuration.
 # How does this look (client side):
 The user can install the software from the company portal. 
 
-![UserMsg1](./Configuration/Images/MSTeams_PreviewUserMsg1.png)
+![UserMsg1](./Configuration/Images/MSTeams_PreviewIfUserHasCompanyPortal.png)
 
 If the user has teams installed but it is out-of-date it will be updated. if the user is not using teams at that moment the update will happen without interupting the user.
 If the user has teams active they will be prompted to close the application or defer the installation.
