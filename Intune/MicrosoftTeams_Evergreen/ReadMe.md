@@ -1,5 +1,6 @@
 # Description:
 This is a package made for microsoft teams in intune.
+![Microsoft Teams Banner](./package/AppDeployToolkit/AppDeployToolkitBanner.png)
 
 # Including: 
 - Install (using winget)
@@ -16,9 +17,9 @@ The script will create two deployments in intune
 - Microsoft Teams (upgrader)
 
 The first deployment "Microsoft Teams" is the deployment to assign to the users or devices that need to have microsoft teams installed.
-The second deployment "Microsoft Teams" makes sure that the application is always up to date. Assign this to the computers or users who need to be kept up-to-date as required.
+The second deployment "Microsoft Teams (Updater)" makes sure that the application is always up to date. Assign this to the computers or users who need to be kept up-to-date as required.
 
-A Example deployment
+## A Example deployment
 
 Lets say: You want to make microsoft teams available to all members of IT and Marketing and keep them up to date but if someone else has already installed Teams also make sure that they are also updated.
 
@@ -37,9 +38,17 @@ Deployment:
 With this setup the users of Marketing and IT can go to the company portal and install teams like they are used to and intune checks all users if teams is installed, and if it is installed but out of date updates teams for them.
 
 
-How does this look (admin side):
+# How does this look (admin side):
+The Admin gets two new packaging in the portal
+![](./Configuration/Images/MSTeams_PreviewAdminView1.png)
 
-How does this look (client side):
+These packages can be assigned to users or devices. 
+The "Microsoft Teams" package should be assigned to the users that want to install the software (as available or required)
+The "Microsoft Teams (Updater)" Should be assigned to the users or devices that need to be kept up to date as required.
+
+The packages already have all needed information and configuration.
+
+# How does this look (client side):
 The user can install the software from the company portal.
 ![UserMsg1](./Configuration/Images/MSTeams_PreviewUserMsg1.png)
 
