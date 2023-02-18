@@ -40,7 +40,7 @@ With this setup the users of Marketing and IT can go to the company portal and i
 
 
 # How does this look (admin side):
-The Admin gets two new packaging in the portal
+The Admin gets two new packaging in the portal.
 ![](./Configuration/Images/MSTeams_PreviewAdminView1.png)
 
 These packages can be assigned to users or devices. 
@@ -50,14 +50,17 @@ The "Microsoft Teams (Updater)" Should be assigned to the users or devices that 
 The packages already have all needed information and configuration.
 
 # How does this look (client side):
-The user can install the software from the company portal.
+The user can install the software from the company portal. 
+
 ![UserMsg1](./Configuration/Images/MSTeams_PreviewUserMsg1.png)
 
 If the user has teams installed but it is out-of-date it will be updated. if the user is not using teams at that moment the update will happen without interupting the user.
-If the user has teams active they will be prompted to close the application or defer the installation
+If the user has teams active they will be prompted to close the application or defer the installation.
+
 ![UserMsg1](./Configuration/Images/MSTeams_PreviewUserMsg1.png)
 
 and while the installation is going on they will get a progress message
+
 ![UserMsg1](./Configuration/Images/MSTeams_PreviewUserMsg2.png)
 
 Then when the update is finished teams will automaticaly be restarted and the user can continue.
