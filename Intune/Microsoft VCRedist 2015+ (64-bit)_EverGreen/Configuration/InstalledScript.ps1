@@ -1,11 +1,10 @@
-$uc="{36F68A90-239C-34DF-B58C-64B30153CE35}"
-$GUIDLength = $uc.Length
-$MethodDefinition = @'
-    [DllImport("msi.dll", CharSet = CharSet.Auto, SetLastError=true)]
-    public  static extern UInt32 MsiEnumRelatedProducts(string strUpgradeCode, int reserved, int iIndex, System.Text.StringBuilder sbProductCode);
-'@
-$msi = Add-Type -MemberDefinition $MethodDefinition -Name 'msi' -Namespace 'Win32' -PassThru
-$pc = [System.Text.StringBuilder]::new($GUIDLength)
-$result = $msi::MsiEnumRelatedProducts($uc, 0, 0, $pc)
-
-if ($result -eq 0) {write-host "A version of Microsoft Visual C++ 2022 X64 Minimum Runtime is installed ($pc)"}
+if (!(test-path C:\temp)) {mkdir C:\temp | out-null}
+$LF = "C:\temp\log.log"
+$AN = "Microsoft.VCRedist.2015+.x64"
+"[$(get-date)] [Detection] Starting winget search for $AN" | Out-File -Append -FilePath $LF
+$exe = Resolve-Path "C:\Program Files\WindowsApps\Microsoft.DesktopAppInstaller_*_x64__8wekyb3d8bbwe\winget.exe" | Select-Object -ExpandProperty Path
+$wg = $(.$exe list $AN --accept-source-agreements) 
+if (!($wg -like "*Available*") -and !($wg -like "*No installed package*")) {
+	"[$(get-date)] [Detection] $AN installed"|Out-File -Append -FilePath $LF
+	$true
+} else {"[$(get-date)] [Detection] $AN not installed"|Out-File -Append -FilePath $LF}

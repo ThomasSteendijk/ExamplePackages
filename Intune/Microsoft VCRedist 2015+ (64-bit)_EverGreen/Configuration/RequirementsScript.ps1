@@ -1,6 +1,6 @@
 if (!(test-path C:\temp)) {mkdir C:\temp | out-null}
 $LF = "C:\temp\log.log"
-$AN = "Adobe.Acrobat.Reader.64-bit"
+$AN = "Microsoft.VCRedist.2015+.x64"
 
 $uc="{36F68A90-239C-34DF-B58C-64B30153CE35}"
 $GUIDLength = $uc.Length
@@ -13,6 +13,6 @@ $pc = [System.Text.StringBuilder]::new($GUIDLength)
 $result = $msi::MsiEnumRelatedProducts($uc, 0, 0, $pc)
 
 if ($result -eq 0) {
-	"[$(get-date)] [Requirement check] $AN detected but out-of-date"| Out-File -Append -FilePath $LF
+	"[$(get-date)] [Requirement check] $AN detected"| Out-File -Append -FilePath $LF
 	$true
 } else {"[$(get-date)] [Requirement check] $AN not detected or up-to-date"| Out-File -Append -FilePath $LF}
