@@ -199,7 +199,7 @@ Try {
 	  $URI = "https://download.visualstudio.microsoft.com/download/pr/bcb0cef1-f8cb-4311-8a5c-650a5b694eab/2257B3FBE3C7559DE8B31170155A433FAF5B83829E67C589D5674FF086B868B9/VC_redist.x64.exe"
 	  $exePath = "$env:TEMP\Microsoft.VCRedist.2015+.x64.exe"
 	  Invoke-RestMethod -Method Get -Uri $URI -OutFile $exePath
-	  Start-Process -PSPath $exePath -ArgumentList "/quiet" -Wait
+	  Start-Process -PSPath $exePath -ArgumentList "/quiet /norestart" -Wait
 	  remove-item $exePath -Force
 
 
@@ -223,6 +223,7 @@ Try {
 	  	#Execute-ProcessAsUser is broke in psadt 3.9.2 so commented away for the time being.
 		#Execute-ProcessAsUser -Path "C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe"
 	  }
+	Exit-Script -ExitCode 3010
 
     }
     ElseIf ($deploymentType -ieq 'Uninstall') {
