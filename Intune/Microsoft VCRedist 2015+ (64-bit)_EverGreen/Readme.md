@@ -1,6 +1,7 @@
 # Description:
 This is a package made for Microsoft Visual C++ 2015-2022 Redistributable (x64)in intune.
 This package is been made available because its a pre-requiside for using winget under the system context. 
+![](./package/AppDeployToolkit/AppDeployToolkitBanner.png)
 
 # Including: 
 - Install (downloading the latest version and then using winget)
@@ -29,7 +30,7 @@ Members: All_MarketingUsers, All_ITUsers
 
 Microsoft VCredist 2015+ (64-bit)
 Deployment: 
-- Available: AppGroup_MicrosoftTeams
+- Available: AppGroup_MicrosoftVCredist2015+(64-bit)
 - Required : None
 
 Microsoft VCredist 2015+ (64-bit) (Upgrader)
@@ -37,7 +38,7 @@ Deployment:
 - Available : None
 - Required : All Users
 
-With this setup the users of Marketing and IT can go to the company portal and install teams like they are used to and intune checks all users if teams is installed, and if it is installed but out of date updates teams for them.
+With this setup the users of Marketing and IT can go to the company portal and install VCredist 2015+ like they are used to and intune checks all users if VCredist 2015+ (64-bit) is installed, and if it is installed but out of date updates VCredist 2015+ (64-bit) for them.
 
 
 # How does this look (admin side):
@@ -54,5 +55,5 @@ The packages already have all needed information and configuration.
 The user can install the software from the company portal. 
 ![](./Configuration/Images/User_Preview1.png.png)
 
-If the user has teams installed but it is out-of-date it will be updated. 
+If the user has Microsoft VC redist 2015+ (64-bit) installed but it is out-of-date it will be updated. 
 
