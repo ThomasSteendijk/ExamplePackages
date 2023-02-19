@@ -195,15 +195,30 @@ Try {
         ##*===============================================
         [String]$installPhase = 'Installation'
         ## <Perform Installation tasks here>
-	  $ProgressPreference = 'SilentlyContinue' 
-	  $URI = "https://download.visualstudio.microsoft.com/download/pr/bcb0cef1-f8cb-4311-8a5c-650a5b694eab/2257B3FBE3C7559DE8B31170155A433FAF5B83829E67C589D5674FF086B868B9/VC_redist.x64.exe"
-	  $exePath = "$env:TEMP\Microsoft.VCRedist.2015+.x64.exe"
-	  Invoke-RestMethod -Method Get -Uri $URI -OutFile $exePath
-	  Start-Process -PSPath $exePath -ArgumentList "/quiet /norestart" -Wait
-	  remove-item $exePath -Force
+        #Detect if anty version of Microsoft.VCRedist.2015+.x64 is installed, if not install a recent version so that winget works under system
+        $uc="{36F68A90-239C-34DF-B58C-64B30153CE35}"
+        $GUIDLength = $uc.Length
+        $MethodDefinition = @'
+    [DllImport("msi.dll", CharSet = CharSet.Auto, SetLastError=true)]
+    public  static extern UInt32 MsiEnumRelatedProducts(string strUpgradeCode, int reserved, int iIndex, System.Text.StringBuilder sbProductCode);
+'@
+        $msi = Add-Type -MemberDefinition $MethodDefinition -Name 'msi' -Namespace 'Win32' -PassThru
+        $pc = [System.Text.StringBuilder]::new($GUIDLength)
+        $result = $msi::MsiEnumRelatedProducts($uc, 0, 0, $pc)
+
+        if ($result -eq 0) {
+            $ProgressPreference = 'SilentlyContinue' 
+            $URI = "https://download.visualstudio.microsoft.com/download/pr/bcb0cef1-f8cb-4311-8a5c-650a5b694eab/2257B3FBE3C7559DE8B31170155A433FAF5B83829E67C589D5674FF086B868B9/VC_redist.x64.exe"
+            $exePath = "$env:TEMP\Microsoft.VCRedist.2015+.x64.exe"
+            Invoke-RestMethod -Method Get -Uri $URI -OutFile $exePath
+            Start-Process -PSPath $exePath -ArgumentList "/quiet /norestart" -Wait
+            remove-item $exePath -Force
+        }
 
 
-	  #Update if the latest version is installed.
+
+
+	  #Update if not the latest version is installed.
 	  $exe = Resolve-Path "C:\Program Files\WindowsApps\Microsoft.DesktopAppInstaller_*_x64__8wekyb3d8bbwe\winget.exe" | Select-Object -ExpandProperty Path
 	  .$exe install Microsoft.VCRedist.2015+.x64 --accept-source-agreements | write-log
 
