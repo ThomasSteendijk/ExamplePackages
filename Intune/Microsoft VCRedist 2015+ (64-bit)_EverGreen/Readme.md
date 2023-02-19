@@ -1,7 +1,7 @@
 # Description:
-This is a package made for Microsoft Visual C++ 2015-2022 Redistributable (x64)in intune.
-This package is been made available because its a pre-requiside for using winget under the system context. 
-![](./package/AppDeployToolkit/AppDeployToolkitBanner.png)
+This is a package made for Microsoft Visual C++ 2015-2022 Redistributable (x64)in intune.  
+This package is been made available because its a pre-requiside for using winget under the system context.  
+![AppDeployToolkitBanner](./package/AppDeployToolkit/AppDeployToolkitBanner.png)
 
 # Including: 
 - Install (downloading the latest version and then using winget)
@@ -11,7 +11,7 @@ This package is been made available because its a pre-requiside for using winget
 
 
 # How to use:
-Download the folder to your local system and run the powershell script "Upload to intune.ps1". 
+Download the folder to your local system and run the powershell script `Upload to intune.ps1`. 
 It will install all the required modules and prompt you for the tanent ID (CompanyName.OnMicrosoft.com) and later a account with permission to administrate intune. 
 
 The script will create two deployments in intune
@@ -43,7 +43,7 @@ With this setup the users of Marketing and IT can go to the company portal and i
 
 # How does this look (admin side):
 The Admin gets two new packaging in the portal.
-![](./Configuration/Images/Admin_Preview1.png.png)
+![](./Configuration/Images/Admin_Preview1.png)
 
 These packages can be assigned to users or devices. 
 The "Microsoft VCredist 2015+ (64-bit)" package should be assigned to the users that want to install the software (as available or required)
@@ -53,7 +53,7 @@ The packages already have all needed information and configuration.
 
 # How does this look (client side):
 The user can install the software from the company portal. 
-![](./Configuration/Images/User_Preview1.png.png)
+![](./Configuration/Images/User_Preview1.png)
 
 If the user has Microsoft VC redist 2015+ (64-bit) installed but it is out-of-date it will be updated. 
 
