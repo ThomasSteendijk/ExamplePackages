@@ -198,6 +198,30 @@ Try {
 	  $exe = Resolve-Path "C:\Program Files\WindowsApps\Microsoft.DesktopAppInstaller_*_x64__8wekyb3d8bbwe\winget.exe" | Select-Object -ExpandProperty Path
 	  .$exe install Adobe.Acrobat.Reader.64-bit --accept-source-agreements | write-log
 
+      #set registry key to prevent popup about the EULA.
+      Set-RegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\AdobeViewer' -Name 'EULA' -Type 'Dword' -Value '1'
+
+      #Set Adobe Reader as the default PDF reader
+      	# Create and activate a active setup that will set the file association for the user the next time he/she logs in 
+		$ActiveSetupFolder = "$env:ProgramFiles\ActiveSetup"
+        New-Folder -Path $ActiveSetupFolder
+		#Copy the SetUserFTA.exe into the C:\programfiles\OGD folder so its available for the future users
+		$CopyFileParameters = @{
+			Path         = "$dirfiles\SetUserFTA.exe"
+			Destination  = "$ActiveSetupFolder\SetUserFTA.exe"
+		} 
+		Copy-File @CopyFileParameters  
+
+		$ActiveSetupParameters = @{
+			StubExePath = "$ActiveSetupFolder\SetUserFTA.exe"
+			Arguments   = ".pdf Acrobat.Document.DC"
+			Description = "Sets Adobe reader DC as default for .PDF files"
+			Key         = "file association .PDF"
+			Version     = "1,0,0,0" #!! WARNING: These need to be comma (,) NOT POINTS (.) !!
+		}
+		Set-ActiveSetup @ActiveSetupParameters 
+
+
         ##*===============================================
         ##* POST-INSTALLATION
         ##*===============================================
@@ -243,8 +267,9 @@ Alternatively, save your work and click 'Close Programs'."
         ##*===============================================
         [String]$installPhase = 'Uninstallation'
         ## <Perform Uninstallation tasks here>
-	  Remove-MSIApplications -Name "Adobe Acrobat (64-bit)"
-
+        Remove-MSIApplications -Name "Adobe Acrobat (64-bit)"
+        $ActiveSetupFolder = "$env:ProgramFiles\ActiveSetup"
+        remove-Path $ActiveSetupFolder
 
         ##*===============================================
         ##* POST-UNINSTALLATION
