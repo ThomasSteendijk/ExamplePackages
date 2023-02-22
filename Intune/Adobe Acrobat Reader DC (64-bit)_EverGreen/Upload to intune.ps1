@@ -2,12 +2,9 @@ Start-Transcript -Path "$(get-date -Format "yyyyMMdd-HHmmss") - UploadLog.log"
 Set-ExecutionPolicy Bypass -Scope "Process" -Force
 
 #Install prereqs
-Install-PackageProvider -Name NuGet            -Scope CurrentUser -Force
-Install-Module          -Name "MSAL.PS"        -Scope CurrentUser -Force
-Install-Module          -Name "IntuneWin32App" -Scope CurrentUser -Force
-
-Import-Module -Name "MSAL.PS"
-Import-Module -Name "IntuneWin32App"
+(get-PackageProvider -Name "NuGet" -Force)
+if (Get-Module -Name "IntuneWin32App" -ListAvailable) {Import-Module -Name "IntuneWin32App"} else {Install-Module  -Name "IntuneWin32App" -Scope CurrentUser -Force;Import-Module -Name "IntuneWin32App"}
+if (Get-Module -Name "MSAL.PS"        -ListAvailable) {Import-Module -Name "MSAL.PS"       } else {Install-Module  -Name "MSAL.PS"        -Scope CurrentUser -Force;Import-Module -Name "MSAL.PS"}
 
 $TenantID = Read-Host -Prompt "TenantID / Name (Company.Onmicrosoft.com)"
 if ($tenantID -like "*@*") {$TenantID = ($TenantID -split "@")[-1]}
@@ -64,7 +61,7 @@ if ($App_VCredist) {
 $IntuneWin32AppParameters.DisplayName               += " (Upgrader)" 
 $IntuneWin32AppParameters.DetectionRule             = New-IntuneWin32AppDetectionRuleScript -ScriptFile "$PSScriptRoot\Configuration\InstalledScript.ps1"
 $IntuneWin32AppParameters.Notes                     = "This packages updates Adobe Acrobat Reader DC (64-bit) if it detects that the user has a out of date version.If the users does not have teams installed teams will not be installed. User gets a popup if they want to update or not if the application is in use. Assign as required to a group or all users."
-$IntuneWin32AppParameters.AdditionalRequirementRule = New-IntuneWin32AppRequirementRuleScript -ScriptFile "$PSScriptRoot\Configuration\RequirementsScript.ps1" -StringOutputDataType -StringComparisonOperator equal -StringValue "true" -ScriptContext user
+$IntuneWin32AppParameters.AdditionalRequirementRule = New-IntuneWin32AppRequirementRuleScript -ScriptFile "$PSScriptRoot\Configuration\RequirementsScript.ps1" -StringOutputDataType -StringComparisonOperator equal -StringValue "true" -ScriptContext System
 
 
 $Win32App = Add-IntuneWin32App @IntuneWin32AppParameters
