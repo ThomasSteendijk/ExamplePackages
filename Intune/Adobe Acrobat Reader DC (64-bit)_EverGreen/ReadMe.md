@@ -32,9 +32,9 @@ The first deployment "Adobe Acrobat Reader DC (64-bit)" is the deployment to ass
 The second deployment "Adobe Acrobat Reader DC (64-bit) (Updater)" makes sure that the application is always up to date. Assign this to the computers or users who need to be kept up-to-date as required.
 
 # Configuration
-This package includes two configurations
-EULA has been accepted and (both system and user key have been placed). this so the user does not get a popup and that the build in autoupdater works as expected.
-PDF is set to open with Adobe Acrobat Reader using SetUserFTA.exe.
+This package includes two configurations:  
+- EULA has been accepted and (both system and user key have been placed). this so the user does not get a popup and that the build in autoupdater works as expected.  
+- PDF is set to open with Adobe Acrobat Reader using SetUserFTA.exe.  
 
 ## A Example deployment
 Lets say: You want to make Adobe Acrobat Reader DC (64-bit) available to all members of IT and Marketing and keep them up to date but if someone else has already installed Teams also make sure that they are also updated.
@@ -66,8 +66,8 @@ The "Adobe Acrobat Reader DC (64-bit) (Updater)" Should be assigned to the users
 The packages already have all needed information and configuration.
 
 # How does this look (client side):
-The user can install the software from the company portal.   
-![](./Configuration/Images/CompanyPortal_Preview.png)
+The user can install the software from the company portal.  
+![Companyportal](./Configuration/Images/CompanyPortal_Preview.png)
 
 If the user has teams installed but it is out-of-date it will be updated. if the user is not using teams at that moment the update will happen without interupting the user.
 If the user has teams active they will be prompted to close the application or defer the installation.  
