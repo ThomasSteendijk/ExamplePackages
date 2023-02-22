@@ -42,8 +42,8 @@ $IntuneWin32AppParameters = @{
     AppVersion           = "Latest"
 	Notes                = "Assign this application to install Adobe Acrobat Reader DC (64-bit) to the user."
 	RequirementRule      = New-IntuneWin32AppRequirementRule -Architecture All -MinimumSupportedWindowsRelease 1607
-	InstallCommandLine   = "Deploy-Application.exe"
-	UninstallCommandLine = "Deploy-Application.exe Uninstall"
+	InstallCommandLine   = "ServiceUI_64.exe -process:explorer.exe Deploy-Application.exe"
+	UninstallCommandLine = "ServiceUI_64.exe -process:explorer.exe Deploy-Application.exe Uninstall"
 }
 
 $Win32App = Add-IntuneWin32App @IntuneWin32AppParameters
@@ -53,7 +53,7 @@ if ($App_VCredist) {
 	Add-IntuneWin32AppDependency -ID $Win32App.id -Dependency $(New-IntuneWin32AppDependency -DependencyType AutoInstall -ID $($App_VCredist).id)
 }
 
-
+start-sleep -s 10
 
 #Create a package in intune to update out of date versions of Obsidian
 #Only changing and/or adding parameters to $IntuneWin32AppParameters
