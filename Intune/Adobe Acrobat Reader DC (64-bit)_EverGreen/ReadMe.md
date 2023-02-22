@@ -3,8 +3,8 @@
 |--|--|
 :white_check_mark:|Company portal view 
 :white_check_mark:|Install
-:black_square_button:|Uninstall
-:black_square_button:|Auto-update
+:white_check_mark:|Uninstall
+:white_check_mark:|Auto-update
 
 :white_check_mark: = Finished and tested
 :black_square_button: = Finished 
