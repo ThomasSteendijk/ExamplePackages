@@ -1,16 +1,25 @@
-# Description:
-This is a package made for microsoft teams in intune.
+# Status
+|status|name|
+|--|--|
+:white_check_mark:|Company portal view 
+:white_check_mark:|Install
+:black_square_button:|Uninstall
+:white_check_mark:|Auto-update
 
+:white_check_mark: = Finished and tested
+:black_square_button: = Finished 
+
+# Description:
+This is a package made for microsoft teams in intune.  
 ![Microsoft Teams Banner](./package/AppDeployToolkit/AppDeployToolkitBanner.png)
 
 # Including: 
 - Install (using winget)
 - Uninstall
-- Configuration
 - Uploadscript for Intune
 
 # How to use:
-Download the folder to your local system and run the powershell script "Upload to intune.ps1". 
+Download the folder to your local system and run the powershell script `"Upload to intune.ps1"`. 
 It will install all the required modules and prompt you for the tanent ID (CompanyName.OnMicrosoft.com) and later a account with permission to administrate intune. 
 
 The script will create two deployments in intune
@@ -55,17 +64,12 @@ The user can install the software from the company portal.
 ![](./Configuration/Images/MSTeams_PreviewIfUserHasCompanyPortal.png)
 
 If the user has teams installed but it is out-of-date it will be updated. if the user is not using teams at that moment the update will happen without interupting the user.
-If the user has teams active they will be prompted to close the application or defer the installation.
+If the user has teams active they will be prompted to close the application or defer the installation.  
 
 ![UserMsg1](./Configuration/Images/MSTeams_PreviewUserMsg1.png)
 
-and while the installation is going on they will get a progress message
+And while the installation is going on they will get a progress message  
 
 ![UserMsg1](./Configuration/Images/MSTeams_PreviewUserMsg2.png)
 
 Then when the update is finished teams will automaticaly be restarted and the user can continue.
-
-
-
-
-
