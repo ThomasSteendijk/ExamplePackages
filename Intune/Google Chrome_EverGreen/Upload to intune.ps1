@@ -34,16 +34,16 @@ $App_VCredist = Get-IntuneWin32App -DisplayName "Microsoft VCredist 2015+ (64-bi
 #Create package in intune for deploying to the users.
 $IntuneWin32AppParameters = @{
 	FilePath             = (Get-ChildItem -PSPath $psscriptroot -Filter "*.intunewin").FullName
-	DisplayName          = "Mozilla Firefox" 
-	Description          = "Firefox Browser, also known as Mozilla Firefox or simply Firefox, is a free and open-source web browser developed by the Mozilla Foundation and its subsidiary, the Mozilla Corporation."
-	Publisher            = "Mozilla"
+	DisplayName          = "Google Chrome" 
+	Description          = "A more simple, secure, and faster web browser than ever, with Google’s smarts built-in."
+	Publisher            = "Google LLC"
 	InstallExperience    = "system"
 	RestartBehavior      = "basedOnReturnCode" 
-	DetectionRule        = New-IntuneWin32AppDetectionRuleFile -Path "C:\Program Files\Mozilla Firefox" -Existence -FileOrFolder "Firefox.exe" -DetectionType exists
+	DetectionRule        = New-IntuneWin32AppDetectionRuleFile -Path "C:\Program Files\Google\Chrome\Application" -Existence -FileOrFolder "Chrome.exe" -DetectionType exists
 	Icon 	 	         = New-IntuneWin32AppIcon -FilePath "$psscriptroot\package\AppDeployToolkit\AppDeployToolkitLogo.png" 
 	Verbose              = $true
-    AppVersion           = "Latest"
-	Notes                = "Assign this application to install Firefix to the user."
+      AppVersion           = "Latest"
+	Notes                = "Assign this application to install Chrome to the user."
 	RequirementRule      = New-IntuneWin32AppRequirementRule -Architecture All -MinimumSupportedWindowsRelease 1607
 	InstallCommandLine   = "ServiceUI_64.exe -process:explorer.exe Deploy-Application.exe"
 	UninstallCommandLine = "ServiceUI_64.exe -process:explorer.exe Deploy-Application.exe Uninstall"
@@ -63,7 +63,7 @@ start-sleep -s 10
 
 $IntuneWin32AppParameters.DisplayName               += " (Upgrader)" 
 $IntuneWin32AppParameters.DetectionRule             = New-IntuneWin32AppDetectionRuleScript -ScriptFile "$PSScriptRoot\Configuration\InstalledScript.ps1"
-$IntuneWin32AppParameters.Notes                     = "This packages updates Mozilla Firefox if it detects that the user has a out of date version.If the users does not have teams installed Mozilla Firefox will not be installed. User gets a popup if they want to update or not if the application is in use. Assign as required to a group or all users."
+$IntuneWin32AppParameters.Notes                     = "This packages updates Google Chrome if it detects that the user has a out of date version.If the users does not have Google Chrome installed Google Chrome will not be installed. User gets a popup if they want to update or not if the application is in use. Assign as required to a group or all users."
 $IntuneWin32AppParameters.AdditionalRequirementRule = New-IntuneWin32AppRequirementRuleScript -ScriptFile "$PSScriptRoot\Configuration\RequirementsScript.ps1" -StringOutputDataType -StringComparisonOperator equal -StringValue "true" -ScriptContext user
 
 
