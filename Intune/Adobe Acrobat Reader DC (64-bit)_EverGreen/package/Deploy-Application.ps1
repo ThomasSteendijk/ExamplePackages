@@ -221,7 +221,6 @@ Try {
 		}
 		Set-ActiveSetup @ActiveSetupParameters 
 
-
         ##*===============================================
         ##* POST-INSTALLATION
         ##*===============================================
@@ -268,8 +267,9 @@ Alternatively, save your work and click 'Close Programs'."
         [String]$installPhase = 'Uninstallation'
         ## <Perform Uninstallation tasks here>
         Remove-MSIApplications -Name "Adobe Acrobat (64-bit)"
+        Set-ActiveSetup -Key "file association .PDF" -PurgeActiveSetupKey
         $ActiveSetupFolder = "$env:ProgramFiles\ActiveSetup"
-        remove-Path $ActiveSetupFolder
+        remove-folder -Path $ActiveSetupFolder
 
         ##*===============================================
         ##* POST-UNINSTALLATION
