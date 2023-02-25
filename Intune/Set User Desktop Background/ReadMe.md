@@ -19,16 +19,16 @@ Desktop will only be changed ones, the user can still change it.
 - Uploadscript for Intune
 
 # How to use:
-1.) Download the folder to your local system
-1.) run the powershell script `"Upload to intune.ps1"`. 
-It will install all the required modules and prompt you for the 
-1.) Input tanent ID (CompanyName.OnMicrosoft.com) and later a account with permission to administrate intune. 
-1.) Input link to the desktop.
+1. Download the folder to your local system
+1. run the powershell script `"Upload to intune.ps1"`. 
+It will install all the required modules and prompt you for the tanent ID
+1. Input tanent ID (CompanyName.OnMicrosoft.com) and later a account with permission to administrate intune. 
+1. Input link to the desktop.
 
 The script will create one deployments in intune
 - Set User Desktop Background
 
-Assign this to the computers or users who need have there desktop changed.
+Assign this to the computers or users who need have their desktop changed.
 
 ## A Example deployment
 
