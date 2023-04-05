@@ -216,8 +216,6 @@ Try {
         }
 
 
-
-
 	  #Update if not the latest version is installed.
 	  $exe = Resolve-Path "C:\Program Files\WindowsApps\Microsoft.DesktopAppInstaller_*_x64__8wekyb3d8bbwe\winget.exe" | Select-Object -ExpandProperty Path
 	  .$exe install Microsoft.VCRedist.2015+.x64 --accept-source-agreements | write-log
@@ -227,18 +225,6 @@ Try {
         ##*===============================================
         [String]$installPhase = 'Post-Installation'
         ## <Perform Post-Installation tasks here>
-	  [scriptblock]$HKCURegistrySettings = {
-        	Set-RegistryKey -Key 'HKEY_CURRENT_USER\Software\Adobe\Acrobat Reader\DC\AdobeViewer' -Name 'EULA' -Value 1 -Type DWord -SID $UserProfile.SID
-        }
-                          
-		Invoke-HKCURegistrySettingsForAllUsers -RegistrySettings $HKCURegistrySettings
-
-
-	  If ($AppActive) {
-	  	#Execute-ProcessAsUser is broke in psadt 3.9.2 so commented away for the time being.
-		#Execute-ProcessAsUser -Path "C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe"
-	  }
-	Exit-Script -ExitCode 3010
 
     }
     ElseIf ($deploymentType -ieq 'Uninstall') {
